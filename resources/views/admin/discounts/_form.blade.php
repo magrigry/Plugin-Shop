@@ -28,6 +28,28 @@
 
 <div class="row g-3">
     <div class="mb-3 col-md-6">
+        <label for="min_total_spent">{{ trans('shop::messages.fields.min_spent_amount') }}</label>
+        <input type="number" class="form-control @error('min_total_spent') is-invalid @enderror" id="min_total_spent" name="min_total_spent" value="{{ old('min_total_spent', $discount->min_total_spent ?? '') }}">
+
+        @error('min_total_spent')
+        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+        @enderror
+    </div>
+
+    <div class="mb-3 col-md-6">
+        <label for="max_total_spent">{{ trans('shop::messages.fields.max_spent_amount') }}</label>
+        <div class="input-group">
+            <input type="number" class="form-control @error('max_total_spent') is-invalid @enderror" id="max_total_spent" name="max_total_spent" value="{{ old('max_total_spent', $discount->max_total_spent ?? '') }}">
+
+            @error('max_total_spent')
+            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+            @enderror
+        </div>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="mb-3 col-md-6">
         <label class="form-label" for="startInput">{{ trans('shop::messages.fields.start_date') }}</label>
         <input type="text" class="form-control date-picker @error('start_at') is-invalid @enderror" id="startInput" name="start_at" value="{{ old('start_at', $discount->start_at ?? now()) }}" required>
 

@@ -30,6 +30,8 @@ return [
         'role' => 'Role to set after purchase',
         'user_id' => 'User ID',
         'required_roles' => 'Required role',
+        'min_spent_amount' => 'Minimal amount of money that user has spent to get this discount',
+        'max_spent_amount' => 'Maximal amount of money that user has spent to get this discount',
     ],
 
     'actions' => [

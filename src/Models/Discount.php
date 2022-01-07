@@ -5,6 +5,7 @@ namespace Azuriom\Plugin\Shop\Models;
 use Azuriom\Models\Traits\HasTablePrefix;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * @property int $id
@@ -12,6 +13,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $discount
  * @property bool $is_global
  * @property bool $is_enabled
+ * @property bool $min_total_spent
+ * @property bool $max_total_spent
  * @property \Carbon\Carbon $start_at
  * @property \Carbon\Carbon $end_at
  * @property \Carbon\Carbon $created_at
@@ -39,7 +42,7 @@ class Discount extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'discount', 'packages', 'is_global', 'is_enabled', 'start_at', 'end_at',
+        'name', 'discount', 'packages', 'is_global', 'is_enabled', 'start_at', 'end_at', 'min_total_spent', 'max_total_spent'
     ];
 
     /**
@@ -78,11 +81,40 @@ class Discount extends Model
             return false;
         }
 
+        if (! $this->hasSpentRequirements()) {
+            return false;
+        }
+
         if ($this->is_global) {
             return true;
         }
 
         return $this->packages->contains($package);
+    }
+
+    public function hasSpentRequirements(): bool
+    {
+
+        if ($this->min_total_spent === null || $this->max_total_spent === null) {
+            return true;
+        }
+
+        if (Auth::guest()) {
+            return false;
+        }
+
+        /** @var Payment[] $payments */
+        $payments = Payment::where('user_id', Auth::id())
+            ->scopes(['notPending', 'withRealMoney'])
+            ->get();
+
+        $amount = 0;
+
+        foreach ($payments as $payment) {
+            $amount =+ $payment->price;
+        }
+
+        return $amount >= $this->min_total_spent && $amount <= $this->max_total_spent;
     }
 
     /**
