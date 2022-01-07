@@ -31,20 +31,20 @@
 
 <div class="form-row">
     <div class="form-group col-md-6">
-        <label for="min_spent_amount">{{ trans('shop::messages.fields.min_spent_amount') }}</label>
-        <input type="number" class="form-control @error('name') is-invalid @enderror" id="min_spent_amount" name="min_total_spent" value="{{ old('min_spent_amount', $discount->min_total_spent ?? '') }}">
+        <label for="min_total_spent">{{ trans('shop::messages.fields.min_spent_amount') }}</label>
+        <input type="number" class="form-control @error('min_total_spent') is-invalid @enderror" id="min_total_spent" name="min_total_spent" value="{{ old('min_total_spent', $discount->min_total_spent ?? '') }}">
 
-        @error('min_spent_amount')
+        @error('min_total_spent')
         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
         @enderror
     </div>
 
     <div class="form-group col-md-6">
-        <label for="max_spent_amount">{{ trans('shop::messages.fields.max_spent_amount') }}</label>
+        <label for="max_total_spent">{{ trans('shop::messages.fields.max_spent_amount') }}</label>
         <div class="input-group">
-            <input type="number" class="form-control @error('discount') is-invalid @enderror" id="max_spent_amount" name="max_total_spent" value="{{ old('max_spent_amount', $discount->max_total_spent ?? '') }}">
+            <input type="number" class="form-control @error('max_total_spent') is-invalid @enderror" id="max_total_spent" name="max_total_spent" value="{{ old('max_total_spent', $discount->max_total_spent ?? '') }}">
 
-            @error('max_spent_amount')
+            @error('max_total_spent')
             <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
             @enderror
         </div>
