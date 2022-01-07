@@ -33,6 +33,8 @@ class DiscountRequest extends FormRequest
             'end_at' => ['required', 'date', 'after:start_at'],
             'is_global' => ['filled', 'boolean'],
             'is_enabled' => ['filled', 'boolean'],
+            'min_total_spent' => ['filled', 'integer'],
+            'max_total_spent' => ['filled', 'integer'],
         ];
     }
 }

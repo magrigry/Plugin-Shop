@@ -30,6 +30,8 @@ return [
         'status' => 'Status',
         'payment-id' => 'ID du Paiement',
         'role' => 'Grade à définir lors de l\'achat',
+        'min_spent_amount' => "Montant minimal que l'utilisateur doit avoir dépensé au total pour bénéficier de cette réduction",
+        'max_spent_amount' => "Montant maximal que l'utilisateur doit avoir dépensé au total pour bénéficier de cette réduction",
     ],
 
     'actions' => [

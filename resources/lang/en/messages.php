@@ -30,6 +30,8 @@ return [
         'status' => 'Status',
         'payment-id' => 'Payment ID',
         'role' => 'Role to set after purchase',
+        'min_spent_amount' => 'Minimal amount of money that user has spent to get this discount',
+        'max_spent_amount' => 'Maximal amount of money that user has spent to get this discount',
     ],
 
     'actions' => [

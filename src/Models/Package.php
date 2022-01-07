@@ -117,7 +117,7 @@ class Package extends Model implements Buyable
             ->where('is_global', false)
             ->merge($globalDiscounts)
             ->filter(function (Discount $discount) {
-                return $discount->isActive();
+                return $discount->isActive() && $discount->hasSpentRequirements();
             })->reduce(function ($result, Discount $discount) {
                 return $result - ($discount->discount / 100) * $result;
             }, $this->price - $this->getCumulatedPurchasesTotal());
