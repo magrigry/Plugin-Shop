@@ -5,6 +5,7 @@ namespace Azuriom\Plugin\Shop\Controllers;
 use Azuriom\Http\Controllers\Controller;
 use Azuriom\Plugin\Shop\Models\Category;
 use Azuriom\Plugin\Shop\Models\Payment;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\HtmlString;
 
@@ -23,11 +24,13 @@ class CategoryController extends Controller
 
         $message = setting('shop.home', trans('shop::messages.welcome'));
 
-        return view('shop::categories.index', [
-            'category' => null,
-            'categories' => $this->getCategories(),
+        /** @var Collection<Category> $categories */
+        $categories = $this->getCategories();
+
+        return view('shop::categories.show', [
+            'category' => $categories->first(),
+            'categories' => $categories,
             'goal' => $this->getMonthGoal(),
-            'welcome' => new HtmlString($message),
         ]);
     }
 
