@@ -1,3 +1,19 @@
+@guest
+    <form method="GET" action="{{ route('login') }}" class="mb-3">
+
+        <div class="mb-3">
+            <label class="form-label" for="email">Pseudo minecraft</label>
+            <input id="email" type="text" class="form-control" name="email" required autocomplete="email" autofocus>
+        </div>
+
+        <div class="d-grid">
+            <button type="submit" class="btn btn-primary d-block">
+                {{ trans('auth.login') }}
+            </button>
+        </div>
+    </form>
+@endguest
+
 <div class="list-group mb-3">
     <a href="{{ route('shop.home') }}" class="list-group-item @if($category === null) active @endif">
         {{ trans('messages.home') }}

@@ -5,6 +5,7 @@ namespace Azuriom\Plugin\Shop\Controllers;
 use Azuriom\Http\Controllers\Controller;
 use Azuriom\Plugin\Shop\Models\Category;
 use Azuriom\Plugin\Shop\Models\Payment;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\HtmlString;
 
 class CategoryController extends Controller
@@ -16,6 +17,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        if (Auth::guest()) {
+            return redirect()->route('login');
+        }
+
         $message = setting('shop.home', trans('shop::messages.welcome'));
 
         return view('shop::categories.index', [
