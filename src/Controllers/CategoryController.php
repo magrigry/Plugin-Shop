@@ -42,6 +42,10 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        if (Auth::guest()) {
+            return redirect()->route('login');
+        }
+
         $categories = $this->getCategories($category);
 
         $category->load('packages.discounts');
